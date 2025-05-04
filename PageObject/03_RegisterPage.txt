@@ -3,15 +3,11 @@
 
 *** Settings ***
 
-# TODO: Write Documentation e.g. User Registration Test scenario with verification, valid and invalid credentials.
+Documentation	Testing the user registration functionality. User Registration Test scenario with verification, valid and invalid credentials.
 
-Documentation	
-
-# TODO: Write Precondition, Postcondition, Tags
-
-Pre Condition	
-Post Condition	
-Tags
+Pre Condition	Open Browser
+Post Condition	Close All Browsers
+Tags			Registration, TS_GL_002
 
 #******************* Common Variables ********************
 
@@ -22,6 +18,13 @@ Tags
 # TODO: Write Registration field variables
 
 LoginUrl = https://gitlab.com/users/sign_up
+ValidUsername=     TestUser123
+ValidEmail=        testuser123@example.com
+ValidPassword=     Test@Password123
+InvalidEmail=      testuser123@
+EmptyField=        ${EMPTY}
+SameUsername=      TestUser123
+SameEmail=         testuser123@example.com
 
 
 
