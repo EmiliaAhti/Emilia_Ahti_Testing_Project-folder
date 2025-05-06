@@ -20,16 +20,16 @@ Last modified: 05.04.2024
 - [x] Write Learning Reflection page
   - [x] 01_LearningReflection.md
 - [x] Now you have completed your assignment it's time for you to share your assignment in github and Canvas.
-- [ ] Share your project on **GitHub**
+- [x] Share your project on **GitHub**
   - [x] Create a new repository
-  - [ ] Add a README file and write your full name as seen on Laurea Pakki or Canvas, because your GitHub username may be different than your original name so it is easier for the teacher to recognize you and your assignment work.
+  - [x] Add a README file and write your full name as seen on Laurea Pakki or Canvas, because your GitHub username may be different than your original name so it is easier for the teacher to recognize you and your assignment work.
   - [x] Upload your all project files and folders, using the Add file drop-down, click Upload files. Drag and drop the file or folder you'd like to upload to your repository
-  - [ ] **Do not upload the ZIP file on GitHub**
-  - [ ] Share your GitHub repository link in the **Canvas Assignment comments**.
-- [ ] Upload your project on **Cavas**
-  - [ ] When you complete your testing assignment, Export it as a Zip file
-  - [ ] “Firstname_Lastname_Testing_Project.zip”
-  - [ ] **Return them to Canvas as one Zip file** Upload your project file (Zip) to the Canvas platform as an Assignment return,“Firstname_Lastname_Testing_Project.zip” and share your GitHub link
+  - [x] **Do not upload the ZIP file on GitHub**
+  - [x] Share your GitHub repository link in the **Canvas Assignment comments**.
+- [x] Upload your project on **Cavas**
+  - [x] When you complete your testing assignment, Export it as a Zip file
+  - [x] “Firstname_Lastname_Testing_Project.zip”
+  - [x] **Return them to Canvas as one Zip file** Upload your project file (Zip) to the Canvas platform as an Assignment return,“Firstname_Lastname_Testing_Project.zip” and share your GitHub link
 
 # Assignment Overview
 
