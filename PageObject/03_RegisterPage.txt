@@ -7,7 +7,7 @@ Documentation	Testing the user registration functionality. User Registration Tes
 
 Pre Condition	Open Browser
 Post Condition	Close All Browsers
-Tags			Registration, TS_GL_002
+Tags			Registration, TS-2-Registration
 
 #******************* Common Variables ********************
 
@@ -15,16 +15,14 @@ Tags			Registration, TS_GL_002
 
 # NOTE: Please Remove your login credential before uploading Assignments
 
-# TODO: Write Registration field variables
-
-LoginUrl = https://gitlab.com/users/sign_up
-ValidUsername=     TestUser123
-ValidEmail=        testuser123@example.com
-ValidPassword=     Test@Password123
-InvalidEmail=      testuser123@
-EmptyField=        ${EMPTY}
-SameUsername=      TestUser123
-SameEmail=         testuser123@example.com
+SignUpUrl = https://gitlab.com/users/sign_up
+ValidUsername=		*****
+ValidEmail=			*****@gmail.com
+ValidPassword=		*****
+InvalidUsername=	----
+InvalidEmail=		----
+InvalidPassword=	----
+Empty=				
 
 
 
@@ -32,18 +30,77 @@ SameEmail=         testuser123@example.com
 
 *** Test Case ***
 
-# TODO: Write Positive and Negative Test Cases and Test Process steps (Think about possible test cases)
+# Positive Test
 
-# Positive Test examples are below write test process steps for each below test case
+Register User With Valid Username and Password 
+	Navigate To Registration Page	SignUpUrl
+    Input First Name				Emilia
+    Input Last Name					Ahti
+    Input Username					ValidUsername
+    Input Email						ValidEmail
+    Input Password					ValidPassword			
+    Click Continue
+	Solve Recaptcha						
+	Lands on 'Welcome to Gitlab'-page.
 
-	Register user with valid username and password 
-	- Remember credentials which you are going to use for whole application testing 
 
-# Negative Test examples keywords are below write test process steps for each below test case 
+# Negative Test 
 
-	Register user with same above username,
-		...empty password,
-		...invalid email,
-		...Without recaptcha,
+Register User With Already Registered Username
+    Navigate To Registration Page    SignUpUrl
+    Input First Name                 Emilia
+    Input Last Name                  Ahti
+    Input Username                   ValidUsername
+    Verify Error Message Contains    Username has already been taken
 
+Register User With Empty Password
+    Navigate To Registration Page    SignUpUrl
+    Input First Name                 Emilia
+    Input Last Name                  Ahti
+    Input Username                   ValidUsername
+    Input Email                      ValidEmail
+    Input Password                   Empty
+    Click Continue
+    Verify Password Is Required Field Error
 
+Register User Without Solving Recaptcha
+    Navigate To Registration Page    SignUpUrl
+    Input First Name                 Emilia
+    Input Last Name                  Ahti
+    Input Username                   ValidUsername
+    Input Email                      ValidEmail
+    Input Password                   ValidPassword
+    Check Terms Checkbox
+    Cannot skip Recaptcha
+    Verify Error Message Contains    You must confirm your email within 3 days of signing up. If you do not confirm your email in this timeframe, your account will be deleted and you will need to sign up for GitLab again.
+
+Register User With Empty Fields
+    Navigate To Registration Page    SignUpUrl
+    Click Continue
+    Verify Multiple Required Field Errors
+
+Register User Without Accepting Terms
+    Navigate To Registration Page    SignUpUrl
+    Input First Name                 Emilia
+    Input Last Name                  Ahti
+    Input Username                   ValidUsername
+    Input Email                      ValidEmail
+    Input Password                   ValidPassword
+	Can't Continue without Accepting; Submit Registration Is Also Accepting
+
+Register User With Invalid Username and Valid Password 
+	Navigate To Registration Page	SignUpUrl
+    Input First Name				Emilia
+    Input Last Name					Ahti
+    Input Username					InvalidUsername
+	Verify Required Field Error		Please create a username with only alphanumeric characters.
+
+Register User With Valid Username and Invalid Password 
+	Navigate To Registration Page	SignUpUrl
+    Input First Name				Emilia
+    Input Last Name					Ahti
+    Input Username					ValidUsername
+    Input Email						ValidEmail
+    Input Password					InvalidPassword
+	Click Continue
+    Verify Required Field Error		Must be between 8-128 characters

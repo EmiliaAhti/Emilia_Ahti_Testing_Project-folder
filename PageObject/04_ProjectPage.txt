@@ -3,42 +3,100 @@
 
 *** Settings ***
 
-# TODO: Write Dcocumentation e.g. Project Test scenario. CRUD Operation: Create, Read, Update, Delete
 
-Documentation	
+Documentation	Project Test scenario. CRUD Operation: Create, Read, Update, Delete
 
-# TODO: Write Precondition, Postcondition, Tags
+Pre Condition	 	Open LoginUrl And Login
+Post Condition		Close All Browsers
+Tags				Project, TS-3-Project
 
-Pre Condition	 
-Post Condition	
-Tags
 
 #******************* Common Variables ********************
+
 
 *** Variables ***
 
 # NOTE: Please Remove your login credential before uploading Assignments
+LoginUrl		https://gitlab.com/users/sign_in
+ValidUsername=	*****
+ValidPassword=	*****
 
-# TODO: Write Project creation field variables
-
+BlankProjectUrl=	https://gitlab.com/projects/new#blank_project	
+TemplateProjectUrl=	https://gitlab.com/projects/new#create_from_template
+ProjectName=		My project
+TemplateProjectName=My Template Project
+UpdatedProjectName=	Updated project name
+ProjectDescription=	This is test project
+ProjectVisibility=	Private
 
 
 #******************** Test Cases *************************
 
 *** Test Case ***
 
-# TODO: Write Positive and Negative Test Cases and Test Process steps
 
-# Positive Test examples are below write test process steps for each below test case
+# Positive Test
 
-	Create blank project
-	Create template project 
-	Update name of template project
-	Delete template project
-	Valide that message is showing Project 'First project ' was successfully created.
+Create Blank Project
+    Login To GitLab						LoginUrl, UserName, Password
+    Navigate To Create New Project/Repository
+	Create Blank Project				BlankProjectUrl
+    Input Project Name					ProjectName
+    Select Project Visibility			ProjectVisibility
+    Click Create Project Button
+    Verify Success Message Contains    	Project 'ProjectName' was successfully created.
 
-# Negative Test examples are below write test process steps for each below test case
+Create Template Project
+    Login To GitLab						LoginUrl, UserName, Password
+	Navigate To Create New Project/Repository
+    Create From Template				TemplateProjectUrl
+    Select Project template				Ruby on Rails
+    Input Project Name    				TemplateProjectName
+    Input Project Description    		This is a test template project
+    Select Project Visibility    		ProjectVisibility
+    Click Create Project Button
+    Verify Success Message Contains    	The project was successfully imported.
 
-	Create a blank project with the previous same name
+Update Name Of Template Project
+    Login To GitLab						LoginUrl, UserName, Password
+    Navigate To project					TemplateProjectName
+    Click Three Dots -menu
+	Click Edit
+    Input Updated Project Name			UpdatedProjectName
+    Save Project Settings
+    Verify Success Message Contains		Project 'UpdatedProjectName' was successfully updated.
 
+Delete Template Project
+    Login To GitLab						LoginUrl, UserName, Password
+    Navigate To Project					UpdatedProjectName
+    Click Three Dots -menu
+	Click Delete
+    Input Project Name For Confirmation		UpdatedProjectName
+    Click Delete Project Button
+    Verify Project Deleted Successfully		Project 'UpdatedProjectName' will be deleted on YYYY-MM-DD.
 
+# Negative Test
+
+Create A Blank Project With The Previous Same Name
+    Login To gitlab						LoginUrl, UserName, Password
+    Navigate To Blank Project Page		BlankProjectUrl
+    Input Project Name					ProjectName
+    Select Project Visibility			ProjectVisibility
+    Click Create Project Button
+    Error Message Contains   			The form contains the following errors: Project namespace name has already been taken. Name has already been taken.
+
+Create Project With Empty Name
+    Login To gitlab						LoginUrl, UserName, Password
+    Navigate To Blank Project Page		BlankProjectUrl
+    Leave project name empty
+    Select Project Visibility			ProjectVisibility
+    Click Create Project Button
+    Error Message Contains   			Please fill out this field.
+
+Create Project With Invalid Characters In Name
+    Login To gitlab						LoginUrl, UserName, Password
+    Navigate To Blank Project Page		BlankProjectUrl
+    Input Project Name					ProjectName/*
+    Select Project Visibility			ProjectVisibility
+    Click Create Project Button
+    Error Message Contains				The form contains the following errors: Name can contain only letters, digits, emoji, '_', '.', '+', dashes, or spaces. It must start with a letter, digit, emoji, or '_'.

@@ -2,22 +2,26 @@
 #******************** Settings ************************
 
 *** Settings ***
+
 Documentation	Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
 
-# TODO: Write Precondition and Postcondition, Tags 
-
-Pre Condition	Tips: Project must be created by the user before 
-Post Condition	
-Tags
+Pre Condition	Open Browser And Login And Ensure Project Exists
+Post Condition	Close All Browsers
+Tags			Issue, TS-4-Issue
 
 #******************* Common Variables ********************
 
 
 *** Variables ***
 
-# NOTE: Please Remove your login credential before uploading Assignments
-
-# TODO: Write Issue creation field variables, Updated name of the issue
+LoginUrl			https://gitlab.com/users/sign_in
+ValidUsername=		*****
+ValidPassword=		*****
+ProjectName=		Test Project
+ProjectUrl=			https://gitlab.com/GroupName/ProjectName
+IssueTitle=			Test Issue
+IssueDescription=	This is a test issue
+UpdatedIssueTitle=	Updated Test Issue
 
 
 
@@ -25,11 +29,43 @@ Tags
 
 *** Test Case ***
 
-# TODO: Write Positive Test Cases and Test Process steps
+# Positive Test 
 
-# Positive Test examples are below write test process steps for each below test case
+Create Issue
+    Login To GitLab						LoginUrl, UserName, Password
+    Navigate To Project					ProjectUrl
+    Navigate To New Issue Page			IssueUrl
+    Input Issue Title					IssueTitle
+    Input Issue Description				IssueDescription
+	Click Create Issue					   
+    Verify Issue Created Successfully	IssueTitle
 
-	Create issue,
- 	Update name of issue, 
-	Create second issue with privious updated name
-    Delete first issue
+Update Name Of Issue
+    Login To GitLab						LoginUrl, UserName, Password
+    Navigate To Project					ProjectUrl
+    Navigate To Issues List
+    Open Issue By Title					IssueTitle
+    Click Edit
+    Update Issue Title					UpdatedIssueTitle
+    Click Save Changes
+    Verify Issue Updated Successfully	UpdatedIssueTitle
+
+Create Second Issue With Previous Updated Name
+    Login To gitlab						LoginUrl, UserName, Password
+    Navigate To Project					ProjectUrl
+    Navigate To New Issue Page			IssueUrl
+    Input Issue Title					UpdatedIssueTitle
+    Input Issue Description				This is second issue with same name
+    Click Create Issue 
+    Verify Issue Created Successfully	IssueTitle
+
+Delete First Issue
+    Login To GitLab						LoginUrl, UserName, Password
+    Navigate To Project					ProjectUrl
+    Navigate To Issues List
+    Open Issue By Title					UpdatedIssueTitle
+    Click Issue Options Button
+    Click Three Dots
+	Click Delete Issue
+    Confirm Delete Issue
+    Verify Issue Deleted Successfully	'UpdatedIssueTitle' is not found on the issue list anymore.
